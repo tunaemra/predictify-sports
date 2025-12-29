@@ -117,6 +117,19 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Demo Link */}
+        <div className="text-center mb-8">
+          <a
+            href="/gamification"
+            className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl transition-all transform hover:scale-105"
+          >
+            🎮 View Gamification Demo →
+          </a>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+            See the gamification system in action with interactive components
+          </p>
+        </div>
+
         {/* CTA Section */}
         <div className="text-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg shadow-xl p-12 text-white">
           <h2 className="text-4xl font-bold mb-4">Hemen Başla!</h2>
