@@ -48,8 +48,9 @@ export async function POST(req: NextRequest) {
     }
 
     // Check daily limit for Pro users
+    let todayUsage = 0;
     if (subscriptionTier === 'pro') {
-      const todayUsage = await checkDailyLimit(userId, 'predictions');
+      todayUsage = await checkDailyLimit(userId, 'predictions');
       const limit = AI_LIMITS.predictions.pro;
       
       if (todayUsage >= limit) {
@@ -87,12 +88,15 @@ export async function POST(req: NextRequest) {
     // Increment usage counter
     await incrementUsage(userId, 'predictions');
 
+    // Calculate remaining predictions
+    const newUsage = todayUsage + 1;
+    const limit = subscriptionTier === 'vip' ? AI_LIMITS.predictions.vip : AI_LIMITS.predictions.pro;
+    const remaining = limit - newUsage;
+
     return NextResponse.json({
       prediction,
       cached: false,
-      remainingToday: subscriptionTier === 'vip' 
-        ? 'unlimited' 
-        : AI_LIMITS.predictions.pro - (await checkDailyLimit(userId, 'predictions')),
+      remainingToday: subscriptionTier === 'vip' ? 'unlimited' : remaining,
     });
   } catch (error) {
     console.error('Error in AI prediction endpoint:', error);

@@ -106,7 +106,7 @@ export interface AIUsageLimits {
   predictions: {
     free: number;
     pro: number;
-    vip: number | 'unlimited';
+    vip: number; // Use large number instead of 'unlimited'
   };
   chat: {
     free: number;
@@ -119,7 +119,7 @@ export const AI_LIMITS: AIUsageLimits = {
   predictions: {
     free: 0,
     pro: 10,
-    vip: 'unlimited',
+    vip: 999999, // Effectively unlimited
   },
   chat: {
     free: 0,
